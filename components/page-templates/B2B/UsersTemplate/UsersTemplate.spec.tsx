@@ -4,30 +4,37 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { composeStories } from '@storybook/testing-react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import mediaQuery from 'css-mediaquery'
 
 import * as stories from './UsersTemplate.stories' // import all stories from the stories file
 import { createQueryClientWrapper, renderWithQueryClient } from '@/__test__/utils'
+import { createMatchMedia, createMuiMaterialMock } from '@/__test__/utils/testHelpers'
 import { ModalContextProvider } from '@/context'
+
+// Mock next/router
+const mockPush = jest.fn()
+const mockRouter = {
+  push: mockPush,
+  pathname: '/',
+  query: {},
+  asPath: '/',
+  route: '/',
+  basePath: '',
+  isLocaleDomain: false,
+  isReady: true,
+  isPreview: false,
+}
+
+jest.mock('next/router', () => ({
+  useRouter: () => mockRouter,
+}))
 
 const { Common } = composeStories(stories)
 
 // Mock
 const onCloseMock = jest.fn()
 jest.mock('@/lib/helpers/hasPermission', () => ({
-  hasPermission: jest.fn().mockImplementation(() => true),
+  hasAnyPermission: jest.fn().mockImplementation(() => true),
 }))
-
-const createMatchMedia = (width: number) => (query: string) => ({
-  matches: mediaQuery.match(query, { width }),
-  addListener: () => jest.fn(),
-  removeListener: () => jest.fn(),
-  media: query,
-  onchange: null,
-  addEventListener: jest.fn(),
-  removeEventListener: jest.fn(),
-  dispatchEvent: jest.fn(),
-})
 
 jest.mock('@mui/material', () => {
   const originalModule = jest.requireActual('@mui/material')
@@ -66,6 +73,10 @@ const UserTableMock = () => <div data-testid="user-table-mock"></div>
 jest.mock('../../../b2b/User/UserTable/UserTable', () => () => UserTableMock())
 
 describe('[component] - UsersTemplate', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('should render component', async () => {
     jest.mock('@/hooks', () => ({
       useGetB2BUserQueries: jest.fn().mockReturnValue({
@@ -95,7 +106,7 @@ describe('[component] - UsersTemplate', () => {
     expect(circularProgressElement).toBeInTheDocument()
   })
 
-  it('should open user form when add user button clicked in desktop view', async () => {
+  it('should navigate to add user page when add user button clicked in desktop view', async () => {
     renderWithQueryClient(
       <ModalContextProvider>
         <Common />
@@ -105,8 +116,7 @@ describe('[component] - UsersTemplate', () => {
     const addUserButton = screen.getByText('add-user')
     fireEvent.click(addUserButton)
 
-    const userForm = screen.getByTestId('user-form-mock')
-    expect(userForm).toBeVisible()
+    expect(mockPush).toHaveBeenCalledWith('/my-account/b2b/users/add-user')
   })
 
   it('should open user form in dialog when add user button clicked in mobile view', async () => {

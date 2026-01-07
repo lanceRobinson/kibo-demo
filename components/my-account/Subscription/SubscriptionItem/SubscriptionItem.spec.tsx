@@ -60,6 +60,10 @@ interface EditBillingAddressProps {
 }
 
 // Mock
+jest.mock('@/lib/helpers/hasPermission', () => ({
+  hasAnyPermission: jest.fn(() => true),
+}))
+
 jest.mock('@/components/dialogs', () => ({
   __esModule: true,
   ConfirmationDialog: (props: ConfirmationDialogProps) => {
@@ -196,7 +200,7 @@ jest.mock('@/components/common/KiboSelect/KiboSelect', () => ({
 }))
 
 describe('[component] - SubscriptionItem', () => {
-  const setup = () => {
+  const setup = async () => {
     const user = userEvent.setup()
 
     server.use(
@@ -211,13 +215,18 @@ describe('[component] - SubscriptionItem', () => {
     render(<Common />, {
       wrapper: createQueryClientWrapper(),
     })
+
+    await waitFor(() => {
+      expect(true).toBe(true)
+    })
+
     return {
       user,
     }
   }
 
-  it('should render component', () => {
-    setup()
+  it('should render component', async () => {
+    await setup()
     const subscriptionNumber = screen.getByText(/subscription-number/i)
     const status = screen.getByText(/status/i)
     const shipmentFrequency = screen.getByText(/shipment-frequency/i)
@@ -281,7 +290,7 @@ describe('[component] - SubscriptionItem', () => {
 
   describe('ship-now', () => {
     it('should open Confirmation Dialog when user clicks on ship-now button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const shipAnItemNowButton = screen.getByRole('button', {
         name: /ship-now/i,
@@ -297,7 +306,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should Ship Item when user clicks on Confirm button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const shipAnItemNowButton = screen.getByRole('button', {
         name: /ship-now/i,
@@ -320,7 +329,7 @@ describe('[component] - SubscriptionItem', () => {
 
   describe('skip-shipment', () => {
     it('should open Confirmation Dialog when user clicks on skip-shipment button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const skipShipmentButton = screen.getByRole('button', {
         name: /skip-shipment/i,
@@ -336,7 +345,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should Skip Shipment when user clicks on Confirm button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const skipShipmentButton = screen.getByRole('button', {
         name: /skip-shipment/i,
@@ -362,7 +371,7 @@ describe('[component] - SubscriptionItem', () => {
 
   describe('cancel-subscription', () => {
     it('should open Confirmation Dialog when user clicks on cancel subscription button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const cancelSubscriptionButton = screen.getByRole('button', {
         name: /cancel-subscription/i,
@@ -378,7 +387,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should cancel subscription when user clicks on Confirm button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const cancelSubscriptionButton = screen.getByRole('button', {
         name: /cancel-subscription/i,
@@ -401,7 +410,7 @@ describe('[component] - SubscriptionItem', () => {
 
   describe('pause-subscription', () => {
     it('should open Confirmation Dialog when user clicks on pause button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const pauseButton = screen.getByRole('button', {
         name: /pause-subscription/i,
@@ -417,7 +426,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should pause when user clicks on Confirm button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const pauseButton = screen.getByRole('button', {
         name: /pause-subscription/i,
@@ -440,7 +449,7 @@ describe('[component] - SubscriptionItem', () => {
 
   describe('edit-subscription-frequency', () => {
     it('should open edit-subscription-frequency Dialog when user clicks on edit-frequency button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editFrequencyButton = screen.getByRole('button', {
         name: /edit-frequency/i,
@@ -458,7 +467,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should save frequency when user clicks on Confirm button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editFrequencyButton = screen.getByRole('button', {
         name: /edit-frequency/i,
@@ -479,7 +488,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should close dialog when user clicks on Close button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editFrequencyButton = screen.getByRole('button', {
         name: /edit-frequency/i,
@@ -499,7 +508,7 @@ describe('[component] - SubscriptionItem', () => {
 
   describe('edit-order-date', () => {
     it('should open edit-order-date Dialog when user clicks on edit-order-date button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editOrderDateButton = screen.getByRole('button', {
         name: /edit-order-date/i,
@@ -517,7 +526,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should save Order Date when user clicks on Confirm button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editOrderDateButton = screen.getByRole('button', {
         name: /edit-order-date/i,
@@ -539,7 +548,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should close dialog when user clicks on Close button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editOrderDateButton = screen.getByRole('button', {
         name: /edit-order-date/i,
@@ -568,7 +577,7 @@ describe('[component] - SubscriptionItem', () => {
     }
 
     it('should open Popover when user clicks on edit-billing-information button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editBillingInformationButton = screen.getByRole('button', {
         name: /edit-billing-information/i,
@@ -607,7 +616,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should open address-form Dialog when user clicks on add-new-address button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editBillingInformationButton = screen.getByRole('button', {
         name: /edit-billing-information/i,
@@ -630,7 +639,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should save Billing Address when user enters new address and clicks on save button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editBillingInformationButton = screen.getByRole('button', {
         name: /edit-billing-information/i,
@@ -657,7 +666,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should save Billing Address when user selects existing Billing Address', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editBillingInformationButton = screen.getByRole('button', {
         name: /edit-billing-information/i,
@@ -697,7 +706,7 @@ describe('[component] - SubscriptionItem', () => {
 
   describe('edit-shipping-address', () => {
     it('should open Popover when user clicks on edit-shipping-address button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editShippingAddressButton = screen.getByRole('button', {
         name: /edit-shipping-address/i,
@@ -731,7 +740,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should open address-form Dialog when user clicks on add-new-address button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editShippingAddressButton = screen.getByRole('button', {
         name: /edit-shipping-address/i,
@@ -755,7 +764,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should save Shipping Address when user enters new address and clicks on save button', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editShippingAddressButton = screen.getByRole('button', {
         name: /edit-shipping-address/i,
@@ -786,7 +795,7 @@ describe('[component] - SubscriptionItem', () => {
     })
 
     it('should save Shipping Address when user selects existing Shipping Address', async () => {
-      const { user } = setup()
+      const { user } = await setup()
 
       const editShippingAddressButton = screen.getByRole('button', {
         name: /edit-shipping-address/i,

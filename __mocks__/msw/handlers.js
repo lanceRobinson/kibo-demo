@@ -13,6 +13,7 @@ import {
   customerPurchaseOrderMock,
   customerPurchaseOrderAccountMock,
   b2BAccountHierarchyResult,
+  rolesMock,
 } from '../stories'
 import { b2BAccountResponseMock } from '../stories/b2BAccountResponseMock'
 import { cartItemMock } from '../stories/cartItemMock'
@@ -673,6 +674,77 @@ export const b2bHandlers = [
   graphql.mutation('deleteQuoteCoupon', (_req, res, ctx) => {
     return res(ctx.data({ deleteQuoteCoupon: quoteMock?.items?.[0] }))
   }),
+
+  // useGetRolesByAccountIdAsync
+  graphql.query('getRolesByAccountIdAsync', (_req, res, ctx) => {
+    return res(ctx.data({ getRolesByAccountIdAsync: rolesMock }))
+  }),
+
+  // useGetRoleByRoleIdAsync
+  graphql.query('getRoleByRoleIdAsync', (req, res, ctx) => {
+    const { roleId } = req.variables
+    const role = rolesMock.items.find((r) => r.id === roleId)
+    return res(ctx.data({ getRoleByRoleIdAsync: role || rolesMock.items[0] }))
+  }),
+
+  // useGetUsersByRoleAsync
+  graphql.query('getUsersByRoleAsync', (_req, res, ctx) => {
+    const mockUsers = [
+      {
+        emailAddress: 'admin@example.com',
+        userName: 'admin',
+        firstName: 'Admin',
+        lastName: 'User',
+        localeCode: 'en-US',
+        userId: 'user1',
+        roles: [{ roleId: 1, roleName: 'Administrator', roleTags: ['admin'] }],
+        isLocked: false,
+        isActive: true,
+        isRemoved: false,
+        acceptsMarketing: true,
+        hasExternalPassword: false,
+      },
+      {
+        emailAddress: 'manager@example.com',
+        userName: 'manager',
+        firstName: 'Store',
+        lastName: 'Manager',
+        localeCode: 'en-US',
+        userId: 'user2',
+        roles: [{ roleId: 1, roleName: 'Administrator', roleTags: ['manager'] }],
+        isLocked: false,
+        isActive: true,
+        isRemoved: false,
+        acceptsMarketing: false,
+        hasExternalPassword: true,
+      },
+    ]
+    return res(ctx.data({ getUsersByRoleAsync: mockUsers }))
+  }),
+
+  // useDeleteRoleAsync
+  graphql.mutation('deleteRoleAsync', (_req, res, ctx) => {
+    return res(ctx.data({ deleteRoleAsync: true }))
+  }),
+
+  // useUpdateRoleAsync
+  graphql.mutation('updateRoleAsync', (req, res, ctx) => {
+    const { roleId, b2BRoleInput } = req.variables
+    const updatedRole = {
+      id: roleId,
+      name: b2BRoleInput.name,
+      isSystemRole: false,
+      behaviors: b2BRoleInput.behaviors || [],
+      accountIds: b2BRoleInput.accountIds || [],
+    }
+    return res(ctx.data({ updateRoleAsync: updatedRole }))
+  }),
+]
+
+export const paypalHandlers = [
+  rest.get(`${baseUrl}/api/is-paypal-enabled`, (_req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ enabled: true }))
+  }),
 ]
 
 export const handlers = [
@@ -690,4 +762,5 @@ export const handlers = [
   ...inventoryHandlers,
   ...subscriptionHandlers,
   ...b2bHandlers,
+  ...paypalHandlers,
 ]

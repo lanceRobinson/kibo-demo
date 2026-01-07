@@ -150,6 +150,9 @@ export enum DateFormat {
 export enum ActionName {
   PAUSE = 'Pause',
   CANCEL = 'Cancel',
+  VIEW = 'view',
+  EDIT = 'edit',
+  COPY = 'copy',
 }
 
 export const CurrencyCode = {
@@ -178,6 +181,7 @@ export const AllAccountActions = {
   VIEW_BUYER_ACCOUNT: 'View buyers for this account',
   VIEW_ACCOUNT: 'View account',
   VIEW_QUOTES: 'View quotes for this account',
+  ACCESS_ACCOUNT: 'Access Account',
   DELETE_ACCOUNT: 'Delete account',
 }
 
@@ -222,4 +226,76 @@ export const OutOfStockBehavior = {
   AllowBackOrder: 'AllowBackOrder',
   DisplayMessage: 'DisplayMessage',
   HideProduct: 'HideProduct',
+}
+
+export const CustomBehaviors = {
+  ViewRole: 2029,
+  CreateRole: 2027,
+  UpdateRole: 2028,
+  DeleteRole: 2030,
+  AddUser: 2000,
+  UpdateUser: 2002,
+  UpdateAccount: 2024,
+  ViewAccountHierarchy: 2025,
+}
+
+export const AccountScope = {
+  AllChild: 'all-child',
+  SpecificChild: 'specific-child',
+  AllExcept: 'all-except',
+}
+
+export const RoleType = {
+  System: 'System',
+  Custom: 'Custom',
+}
+
+export const Routes = {
+  ManageRoles: '/my-account/b2b/manage-roles',
+  CreateRole: '/my-account/b2b/manage-roles/create',
+  Users: '/my-account/b2b/users',
+  AddUser: '/my-account/b2b/users/add-user',
+}
+
+// System Role Behavior Mappings
+export const SystemRoleBehaviors: Record<string, Record<number, number[]>> = {
+  admin: {
+    2000: [2000, 2001, 2002, 2003],
+    2001: [2005, 2004],
+    2002: [2007, 2006],
+    2003: [2009, 2008, 2010],
+    2004: [2012, 2011, 2013],
+    2005: [2015, 2014, 2016],
+    2006: [2021, 2032, 2020, 2022],
+    2007: [2023],
+    2008: [2024],
+    2009: [2031],
+    2010: [2027, 2028, 2029, 2030],
+  },
+  purchaser: {
+    2000: [2001],
+    2001: [2005, 2004],
+    2002: [2007, 2006],
+    2003: [2009, 2008, 2010],
+    2004: [2012, 2011, 2013],
+    2005: [2015, 2014, 2016],
+    2006: [2021, 2032, 2020, 2022],
+    2007: [2023],
+    2008: [],
+    2009: [2031],
+    2010: [2029],
+  },
+  nonpurchaser: {
+    2000: [2001],
+    2001: [2005],
+    2002: [2007],
+    2003: [2009],
+    2004: [2012, 2011, 2013],
+    2005: [2015],
+    2006: [2021],
+    2007: [2023],
+    2008: [],
+    2009: [2031],
+    2010: [2029],
+  },
 }

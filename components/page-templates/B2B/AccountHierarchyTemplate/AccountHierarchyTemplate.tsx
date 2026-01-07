@@ -27,12 +27,13 @@ import {
 } from '@/hooks'
 import {
   actions,
+  b2bUserActions,
   buildAccountHierarchy,
   buildCreateCustomerB2bAccountParams,
   buildUpdateCustomerB2bAccountParams,
   buildUpdateCustomerB2bUserParams,
   filterAccountsByDisableSorting,
-  hasPermission,
+  hasAnyPermission,
   parseFilterParamToObject,
 } from '@/lib/helpers'
 import {
@@ -295,13 +296,18 @@ const AccountHierarchyTemplate = (props: AccountHierarchyTemplateProps) => {
     if (!b2BAccountHierarchy) return
 
     const hierarchy = buildAccountHierarchy(
-      b2BAccountHierarchy?.accounts,
+      b2BAccountHierarchy?.accounts?.length > 0
+        ? b2BAccountHierarchy?.accounts
+        : [user as B2BAccount],
       user?.id as number
     ) as HierarchyTree[]
 
     if (hierarchy) {
       setAccountHierarchy({
-        accounts: b2BAccountHierarchy?.accounts,
+        accounts:
+          b2BAccountHierarchy?.accounts?.length > 0
+            ? b2BAccountHierarchy?.accounts
+            : [user as B2BAccount],
         hierarchy,
       })
     }
@@ -331,7 +337,12 @@ const AccountHierarchyTemplate = (props: AccountHierarchyTemplateProps) => {
                   disableElevation
                   id="formOpenButton"
                   startIcon={<AddCircleOutline />}
-                  disabled={!hasPermission(actions.CREATE_ACCOUNT)}
+                  disabled={
+                    !hasAnyPermission(
+                      actions.CREATE_ACCOUNT,
+                      b2bUserActions.UPDATE_ACCOUNT_INFO_HIERARCHY_AND_ATTRIBUTES
+                    )
+                  }
                   {...(!mdScreen && { fullWidth: true })}
                 >
                   {t('add-child-account')}
