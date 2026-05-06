@@ -127,7 +127,7 @@
     "strict-event-emitter": "^0.4.6",
     "ts-jest": "^29.0.3",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
-    "typedoc": "^0.23.21",
+    "typedoc": "^0.28.19",
     "typedoc-plugin-markdown": "^3.13.6",
     "typescript": "^4.9.5"
   },
