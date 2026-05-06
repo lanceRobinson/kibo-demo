@@ -250,6 +250,7 @@ export default function IntegrationDrawer() {
         anchor="right"
         open={open}
         onClose={() => setOpen(false)}
+        sx={{ zIndex: 1300 }}
         PaperProps={{
           sx: {
             width: 400,
