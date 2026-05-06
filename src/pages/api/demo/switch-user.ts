@@ -24,10 +24,6 @@ const DEMO_USERS: Record<string, { email: string; password: string } | null> = {
 }
 
 export default async function switchUserHandler(req: NextApiRequest, res: NextApiResponse) {
-  if (process.env.NODE_ENV === 'production') {
-    return res.status(404).end()
-  }
-
   if (req.method !== 'POST') {
     return res.status(405).end()
   }
