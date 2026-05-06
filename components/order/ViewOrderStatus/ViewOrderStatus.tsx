@@ -60,12 +60,16 @@ const ViewOrderStatus = (props: ViewOrderStatusProps) => {
 
   const {
     control,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isValid },
     handleSubmit,
   } = useForm<OrderStatusFormDataProps>({
     mode: 'all',
     reValidateMode: 'onChange',
-    defaultValues: undefined,
+    defaultValues: {
+      orderNumber: '681',
+      billingEmail: 'tim.allen@yopmail.com',
+      isRefetching: false,
+    },
     resolver: yupResolver(useViewOrderStatusSchema()),
     shouldFocusError: true,
     context: { isAuthenticated },
@@ -141,7 +145,7 @@ const ViewOrderStatus = (props: ViewOrderStatusProps) => {
             color="primary"
             sx={{ ...buttonStyle }}
             fullWidth
-            disabled={!isDirty || !isValid}
+            disabled={!isValid}
           >
             {t('check-order-status')}
           </Button>

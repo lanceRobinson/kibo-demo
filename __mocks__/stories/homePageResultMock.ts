@@ -1,26 +1,26 @@
 export const homePageResultMock = [
   {
-    buttonText: 'Shop Deals',
-    buttonLink: '/search',
-    description: 'Shop early to get your holiday gifts on time.',
-    imageUrl: 'https://cdn-sb.mozu.com/26507-m1/cms/files/7b763015-5d76-4c3c-a5fd-6a14a476b56c',
-    imageAlt: 'Outdoors!',
-    mobileImageUrl:
-      'https://cdn-sb.mozu.com/26507-m1/cms/files/7b763015-5d76-4c3c-a5fd-6a14a476b56c',
-    subtitle: 'Plus earn 2X Bonus Points',
-    title: 'Up to 50% off Outdoor Gear',
+    buttonText: 'Shop Batteries',
+    buttonLink: '/category/1019',
+    description:
+      'Industrial-grade batteries for forklifts, backup power, and critical equipment — ready to ship same day.',
+    imageUrl: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1400&q=80',
+    imageAlt: 'Industrial batteries',
+    mobileImageUrl: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80',
+    subtitle: 'Bulk Pricing Available',
+    title: 'Power Your Operations',
     contentPosition: 'right',
   },
   {
-    imageUrl: 'https://cdn-sb.mozu.com/26507-m1/cms/files/655bb09f-e5f2-4027-8cf6-76d0363172d1',
-    mobileImageUrl:
-      'https://cdn-sb.mozu.com/26507-m1/cms/files/655bb09f-e5f2-4027-8cf6-76d0363172d1',
-    imageAlt: 'image Alt text',
-    title: 'Check Off Your List Event',
-    subtitle: 'Save up to 50%',
-    description: 'Shop early to get your holiday gifts on time.',
-    buttonText: 'Shop Holiday Items on Sale',
-    buttonLink: '/search',
-    contentPosition: 'right',
+    buttonText: 'Shop Cables & Accessories',
+    buttonLink: '/category/1020',
+    description:
+      'Battery cables, terminals, connectors, and accessories for every industrial application.',
+    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80',
+    imageAlt: 'Battery cables and accessories',
+    mobileImageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    subtitle: 'The Right Fit, Every Time',
+    title: 'Cables & Accessories',
+    contentPosition: 'left',
   },
 ]

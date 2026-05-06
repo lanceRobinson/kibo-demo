@@ -7,21 +7,14 @@ declare module '@mui/material/styles/createPalette' {
 }
 
 export const grey = {
-  900: '#2B2B2B',
-  // Fill Form Label Text, information text
-  700: '#494949',
-  // Home Page background
-  600: '#7C7C7C',
-  // Thin borders, placeholder text
-  500: '#C7C7C7',
-  // Header Accent Color, page separator bar
-  400: '#CDCDCD',
-  // Button background and border color
-  300: '#EAEAEA',
-  // Order Summary Background
-  100: '#F7F7F7',
-  // Secondary Button (cancel button)
-  50: '#FAFAFA',
+  900: '#1F2A44', // Navy — primary text, headers
+  700: '#2F4A6D', // Steel Blue — secondary headings
+  600: '#5A6B7A', // Gray — secondary text, labels
+  500: '#B0BEC5', // Thin borders, placeholder text
+  400: '#C8D0D7', // Header accent, page separator
+  300: '#E6E9ED', // Light Gray — page background, cards
+  100: '#F2F4F6', // Order summary background
+  50: '#FAFAFA', // Secondary button background
 }
 
 export const red = {
@@ -51,12 +44,14 @@ const buttonStyleOverrides = {
   }),
   containedSecondary: {
     backgroundColor: grey[50],
+    color: '#1F2A44',
     borderColor: grey[500],
     borderWidth: 1,
     borderStyle: 'solid',
     boxShadow: 'none',
     '&:hover': {
       backgroundColor: grey[300],
+      color: '#1F2A44',
     },
   },
   containedInherit: {
@@ -109,19 +104,24 @@ let theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#2ea195',
-      light: '#C0E3DF',
+      main: '#1F2A44', // Navy
+      dark: '#2F4A6D', // Steel Blue
+      light: '#8D9CB5', // Muted navy for disabled states
     },
     secondary: {
-      main: '#c0e3df',
+      main: '#F25C05', // Orange Accent
       light: '#FFFFFF',
     },
+    background: {
+      default: '#E6E9ED', // Light Gray
+      paper: '#FFFFFF',
+    },
     text: {
-      primary: grey[900],
-      secondary: grey[600],
+      primary: '#1F2A44', // Navy
+      secondary: '#5A6B7A', // Gray
     },
     warning: {
-      main: '#f8ca24',
+      main: '#F25C05', // Orange (reuse accent for warnings)
     },
     error: {
       main: '#e42d00',

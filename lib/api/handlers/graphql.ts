@@ -35,10 +35,10 @@ export default async function graphQLHandler(req: NextApiRequestWithLogger, res:
     res.status(200).json(response)
   } catch (error: any) {
     if (error instanceof GraphQLError) {
-      req.logger.error(error.dumpErrors(), error.toJson())
+      req.logger.error(error.message, { ...error.toJson(), err: error })
     } else {
-      req.logger.error(error)
+      req.logger.error(error?.message || 'Unexpected error in graphql handler', { err: error })
     }
-    res.status(error?.code).json({ message: error?.message })
+    res.status(error?.code || 500).json({ message: error?.message })
   }
 }

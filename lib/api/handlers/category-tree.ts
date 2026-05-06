@@ -18,7 +18,7 @@ export default async function categoryTreeHandler(
     }
     res.status(200).json(response)
   } catch (error: any) {
-    res.status(error?.code).json({ message: error?.message })
-    req.logger.error('Error in Category-tree handler', error)
+    res.status(error?.code || 500).json({ message: error?.message })
+    req.logger.error('Error in category-tree handler', { err: error })
   }
 }

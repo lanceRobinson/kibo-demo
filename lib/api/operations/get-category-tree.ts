@@ -5,6 +5,9 @@ import { getAdditionalHeader } from '../util'
 import { fetcher } from '@/lib/api/util'
 import cache from '@/lib/api/util/cache'
 import { getCategoryTreeQuery } from '@/lib/gql/queries'
+import { logger } from '@/next-logger.config'
+
+const sourceLogger = logger.child({ source: 'getCategoryTree' })
 
 const { serverRuntimeConfig } = getConfig()
 const cacheKey = serverRuntimeConfig.cacheKey
@@ -19,12 +22,12 @@ export default async function getCategoryTree(req?: NextApiRequest) {
 
     const response = await fetcher({ query: getCategoryTreeQuery, variables: {} }, { headers })
     const items = response?.data?.categoriesTree?.items
-    if (items.length) {
+    if (items?.length) {
       cache.set(cacheKey, items, cacheTimeOut)
     }
 
     return items
-  } catch (error) {
-    console.log(error)
+  } catch (error: any) {
+    sourceLogger.error('Failed to fetch category tree', { err: error })
   }
 }
