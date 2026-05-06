@@ -9,6 +9,7 @@ import Router, { useRouter } from 'next/router'
 
 import { GlobalFetchingIndicator } from '@/components/common'
 import DemoUserSwitcher from '@/components/demo/DemoUserSwitcher'
+import IntegrationDrawer from '@/components/demo/IntegrationDrawer'
 import { Footer, KiboHeader, Preview } from '@/components/layout'
 import {
   AuthContextProvider,
@@ -81,6 +82,7 @@ const DefaultLayout = ({ pageProps, children }: { pageProps: any; children: Reac
               </Stack>
             </HeaderContextProvider>
             <DemoUserSwitcher />
+            <IntegrationDrawer />
           </AuthContextProvider>
         </ModalContextProvider>
       </ThemeProvider>
