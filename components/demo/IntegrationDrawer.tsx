@@ -200,7 +200,7 @@ export default function IntegrationDrawer() {
         sx={{
           position: 'fixed',
           right: 0,
-          top: '50%',
+          top: 'calc(50% + 28px)',
           transform: 'translateY(-50%)',
           zIndex: 1200,
           backgroundColor: '#1F2A44',

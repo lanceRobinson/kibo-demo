@@ -44,11 +44,11 @@ export default function DemoUserSwitcher() {
       sx={{
         position: 'fixed',
         bottom: 24,
-        right: 24,
+        left: 24,
         zIndex: 9999,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-end',
+        alignItems: 'flex-start',
         gap: 0.75,
       }}
     >
