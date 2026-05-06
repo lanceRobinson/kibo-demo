@@ -21,6 +21,7 @@ import { useTranslation } from 'next-i18next'
 
 import { headerActionAreaStyles, kiboHeaderStyles, topHeaderStyles } from './KiboHeader.styles'
 import { KiboLogo } from '@/components/common'
+import BackendInfoModal from '@/components/demo/BackendInfoModal'
 import { AccountHierarchyFormDialog } from '@/components/dialogs'
 import {
   AccountIcon,
@@ -181,10 +182,11 @@ const TopHeader = ({ navLinks }: { navLinks: NavigationLink[] }) => {
             {!isCSR && (
               <>
                 {navLinks?.map((nav, index) => (
-                  <Box key={index}>
+                  <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                     <StyledLink href={nav.link} passHref>
                       {t(`${nav.text}`)}
                     </StyledLink>
+                    {nav.text === 'wishlist' && <BackendInfoModal />}
                   </Box>
                 ))}
               </>
