@@ -80,7 +80,7 @@ const DefaultLayout = ({ pageProps, children }: { pageProps: any; children: Reac
                 {router?.isPreview && <Preview />}
               </Stack>
             </HeaderContextProvider>
-            {process.env.NODE_ENV !== 'production' && <DemoUserSwitcher />}
+            <DemoUserSwitcher />
           </AuthContextProvider>
         </ModalContextProvider>
       </ThemeProvider>
