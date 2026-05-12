@@ -27,7 +27,7 @@
   "register-now": "Register Now",
   "remember-me": "Remember Me",
   "search": "Search",
-  "select-store": "Select Store",
+  "select-store": "Select Facility",
   "check-nearby-store": "Check Nearby Store",
   "set-store": "Set Store",
   "showing-results-for": "results for {{query}}",
@@ -320,7 +320,7 @@
   "order-review": "Order Review",
   "store-pickup-details": "Store pickup details",
   "confirm-and-pay": "Confirm and Pay",
-  "pickup-in-store": "Pickup in Store",
+  "pickup-in-store": "Warehouse Pickup",
   "shipping-details": "Shipping details",
   "shipping-method": "Shipping Method",
 
