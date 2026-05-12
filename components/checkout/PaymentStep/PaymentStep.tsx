@@ -1032,7 +1032,9 @@ const PaymentStep = (props: PaymentStepProps) => {
                             {...(isAddPaymentMethodButtonDisabled() && { disabled: true })}
                             onClick={handleSaveNewPaymentMethod}
                           >
-                            {t('save-payment-method')}
+                            {selectedPaymentTypeRadio === PaymentType.PURCHASEORDER
+                              ? t('save-po-information')
+                              : t('save-payment-method')}
                           </Button>
                         </Stack>
                       </>
