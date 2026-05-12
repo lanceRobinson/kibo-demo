@@ -63,7 +63,7 @@ const DetailsStep = <T extends CrOrder | Checkout>(props: DetailsProps<T>) => {
 
   const { t } = useTranslation('common')
 
-  const { isAuthenticated } = useAuthContext()
+  const { isAuthenticated, user } = useAuthContext()
   const { showModal } = useModalContext()
   const {
     stepStatus,
@@ -74,7 +74,7 @@ const DetailsStep = <T extends CrOrder | Checkout>(props: DetailsProps<T>) => {
   } = useCheckoutStepContext()
 
   const personalDetails = {
-    email: checkout.email ?? '',
+    email: checkout.email || user?.emailAddress || '',
   }
 
   const openLoginModal = () => {
