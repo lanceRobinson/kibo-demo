@@ -60,6 +60,14 @@ const PurchaseOrderForm = (props: PurchaseOrderFormProps) => {
     shouldFocusError: true,
     context: { purchaseOrderPaymentTerms },
   })
+  const defaultPONumber = (() => {
+    const d = new Date()
+    const yyyy = d.getFullYear()
+    const mm = String(d.getMonth() + 1).padStart(2, '0')
+    const dd = String(d.getDate()).padStart(2, '0')
+    return `PO-${yyyy}${mm}${dd}`
+  })()
+
   const singlePurchaseOrderPaymentTerms =
     purchaseOrderPaymentTerms?.length === 1 ? purchaseOrderPaymentTerms?.[0] : null
 
@@ -122,11 +130,11 @@ const PurchaseOrderForm = (props: PurchaseOrderFormProps) => {
           <Controller
             name="purchaseOrderNumber"
             control={control}
-            // defaultValue={contact?.address?.address1}
+            defaultValue={defaultPONumber}
             render={({ field }) => (
               <KiboTextBox
                 {...field}
-                value={field.value || ''}
+                value={field.value || defaultPONumber}
                 label={t('po-number')}
                 ref={null}
                 onChange={(_name: string, value: string) => field.onChange(value)}
