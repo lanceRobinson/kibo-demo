@@ -1049,7 +1049,9 @@ const PaymentStep = (props: PaymentStepProps) => {
                           sx={{ width: { xs: '100%', sm: '50%' } }}
                           onClick={handleAddPaymentMethod}
                         >
-                          {t('add-payment-method')}
+                          {selectedPaymentTypeRadio === PaymentType.PURCHASEORDER
+                            ? t('add-po-information')
+                            : t('add-payment-method')}
                         </Button>
                       </Box>
                     ) : null}
