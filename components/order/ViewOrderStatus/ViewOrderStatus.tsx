@@ -67,7 +67,7 @@ const ViewOrderStatus = (props: ViewOrderStatusProps) => {
     reValidateMode: 'onChange',
     defaultValues: {
       orderNumber: '1055',
-      billingEmail: 'tim.allen@yopmail.com',
+      billingEmail: 'tim.allen.kibo@yopmail.com',
       isRefetching: false,
     },
     resolver: yupResolver(useViewOrderStatusSchema()),
