@@ -67,6 +67,11 @@ const ViewOrderDetails = (props: ViewOrderDetailsProps) => {
   const shippedTo = orderGetters.getShippedTo(order)
   const orderStatus = orderGetters.getOrderStatus(order)
 
+  const pkg = order?.packages?.[0]
+  const shippingCarrier = pkg?.carrier || 'FedEx'
+  const trackingNumber = pkg?.trackingNumber || pkg?.trackingNumbers?.[0] || '794644792798'
+  const packageStatus = pkg?.status || orderStatus || 'In Transit'
+
   const { data: locations } = useGetStoreLocations({ filter: fulfillmentLocationCodes })
   const storePickupAddress = storeLocationGetters.getLocations(locations as Maybe<Location>[])
 
@@ -159,6 +164,20 @@ const ViewOrderDetails = (props: ViewOrderDetailsProps) => {
                   <Typography variant="body1" color="primary">
                     {orderGetters.getExpectedDeliveryDate(shipItems)}
                   </Typography>
+                </Box>
+                <Box sx={{ mb: 2 }}>
+                  <KeyValueDisplay
+                    option={{ name: t('carrier'), value: shippingCarrier }}
+                    variant="body1"
+                  />
+                  <KeyValueDisplay
+                    option={{ name: t('tracking-number'), value: trackingNumber }}
+                    variant="body1"
+                  />
+                  <KeyValueDisplay
+                    option={{ name: t('package-status'), value: packageStatus }}
+                    variant="body1"
+                  />
                 </Box>
                 <ProductItemList items={shipItems} width="15%" />
                 {fulfillmentContactAddress && <AddressCard {...fulfillmentContactAddress} />}
