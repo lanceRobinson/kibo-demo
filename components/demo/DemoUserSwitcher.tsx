@@ -28,11 +28,17 @@ export default function DemoUserSwitcher() {
     if (userKey === activeKey || loading) return
     setLoading(userKey)
     try {
-      await fetch('/api/demo/switch-user', {
+      const res = await fetch('/api/demo/switch-user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user: userKey }),
       })
+      const data = await res.json()
+      if (data?.behaviors) {
+        document.cookie = `behaviors=${data.behaviors}; path=/`
+      } else {
+        document.cookie = 'behaviors=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'
+      }
       router.reload()
     } catch {
       setLoading(null)
