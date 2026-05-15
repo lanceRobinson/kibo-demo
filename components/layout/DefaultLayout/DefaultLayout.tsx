@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 
 import { Container, Stack } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -9,6 +9,7 @@ import Router, { useRouter } from 'next/router'
 
 import { GlobalFetchingIndicator } from '@/components/common'
 import DemoUserSwitcher from '@/components/demo/DemoUserSwitcher'
+import DiagramSpeedDial from '@/components/demo/DiagramSpeedDial'
 import IntegrationDrawer from '@/components/demo/IntegrationDrawer'
 import { Footer, KiboHeader, Preview } from '@/components/layout'
 import {
@@ -30,6 +31,14 @@ creditCardType.updateCard('american-express', {
 
 const DefaultLayout = ({ pageProps, children }: { pageProps: any; children: ReactElement }) => {
   const router = useRouter()
+  const [diagrams, setDiagrams] = useState<any[]>([])
+
+  useEffect(() => {
+    fetch('/demo-diagrams.json')
+      .then((r) => r.json())
+      .then(setDiagrams)
+      .catch((_err) => undefined)
+  }, [])
 
   useEffect(() => {
     const handleRouteChange = (url: any) => {
@@ -83,6 +92,7 @@ const DefaultLayout = ({ pageProps, children }: { pageProps: any; children: Reac
             </HeaderContextProvider>
             <DemoUserSwitcher />
             <IntegrationDrawer />
+            {diagrams.length > 0 && <DiagramSpeedDial diagrams={diagrams} />}
           </AuthContextProvider>
         </ModalContextProvider>
       </ThemeProvider>

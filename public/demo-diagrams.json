@@ -1,0 +1,22 @@
+[
+  {
+    "button_display": "Pricing",
+    "image": "pricing.png",
+    "title": "Pricing Engine"
+  },
+  {
+    "button_display": "Order Routing",
+    "image": "order-routing.png",
+    "title": "Order Routing"
+  },
+  {
+    "button_display": "Event Architecture",
+    "image": "event-architecture.png",
+    "title": "Event Architecture"
+  },
+  {
+    "button_display": "Self-Service",
+    "image": "self-service.png",
+    "title": "Self-Service Portal"
+  }
+]
