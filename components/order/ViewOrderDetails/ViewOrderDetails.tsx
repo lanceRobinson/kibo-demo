@@ -71,6 +71,13 @@ const ViewOrderDetails = (props: ViewOrderDetailsProps) => {
   const shippingCarrier = pkg?.carrier || 'FedEx'
   const trackingNumber = pkg?.trackingNumber || pkg?.trackingNumbers?.[0] || '794644792798'
   const packageStatus = pkg?.status || orderStatus || 'In Transit'
+  const tomorrow = new Date()
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  const expectedDelivery = tomorrow.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  })
 
   const { data: locations } = useGetStoreLocations({ filter: fulfillmentLocationCodes })
   const storePickupAddress = storeLocationGetters.getLocations(locations as Maybe<Location>[])
@@ -176,6 +183,10 @@ const ViewOrderDetails = (props: ViewOrderDetailsProps) => {
                   />
                   <KeyValueDisplay
                     option={{ name: t('package-status'), value: packageStatus }}
+                    variant="body1"
+                  />
+                  <KeyValueDisplay
+                    option={{ name: t('expected-delivery'), value: expectedDelivery }}
                     variant="body1"
                   />
                 </Box>

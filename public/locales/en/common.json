@@ -75,6 +75,7 @@
   "view-all": "View All",
   "view-order-details": "View Order Details",
   "shipment-details": "Shipment Details",
+  "expected-delivery": "Expected Delivery",
   "carrier": "Carrier",
   "tracking-number": "Tracking Number",
   "package-status": "Package Status",
